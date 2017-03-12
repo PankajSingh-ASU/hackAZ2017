@@ -17,22 +17,23 @@
     background-color: rgba(0, 0, 0, 0.5);
 	}
 	</style>
-
- <style type="text/css">
- html, body {
-   height: 100%;
-   margin: 0;
-   padding: 0;
- }
- #map {
-   height: 100%;
- }
- </style>
+  <style>
+    /* Always set the map height explicitly to define the size of the div
+     * element that contains the map. */
+    #map {
+      height: 100%;
+    }
+    /* Optional: Makes the sample page fill the window. */
+    html, body {
+      height: 100%;
+      margin: 0;
+      padding: 0;
+    }
+  </style>
   </head>
 
-  <!--<body background="google_maps.jpeg"> -->
-  <body>
-    <div class="container" style ="padding-top:35px;">
+  <body background="google_maps.jpeg">
+    <div class="container" style ="padding-top:35px;" id="jumbo">
       <div class="header clearfix">
         <nav class="navbar navbar-default navbar-fixed-top">
 		<div class="container-fluid">
@@ -59,45 +60,48 @@
       </div>
 
       <div class="jumbotron" style ="color:white;font-family:Quattrocento Sans,sans-serif;">
-        <h1>Customer Locator</h1>
-        <p class="lead">Have you ever thought finding your existing customers for expanding for business would get so easier??</p>
-        <p><center><a class="btn btn-lg btn-primary" href="#" role="button" onclick = "googleMaps();">Locate Customers</a></center></p>
+        <h1>Hi, I am Alan !!!</h1>
+        <p class="lead">Have you ever thought finding your next job would get so easier??</p>
+        <p><center><a class="btn btn-lg btn-primary" href="#" role="button" onclick = "PlotMap();">Find Jobs</a></center></p>
       </div>
       </div>
     </div>
+    <div style="height:100%; width:100%;">
 	<div id="map"></div>
+</div>
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
   <script type="text/javascript">
 	var map;
 	//var jsonString = " 'data' : [{lat: '33.34',long: '-112.02',name: 'kkk'}, {lat: '32.12',long: '-110.93',name:'lll'},{lat: '31.80',long: '-106.40',name:'dsds'},{lat: '33.93',long: '-118.40',name:'sdd'},{lat: '32.73',long: '-117.17',name:'asda'},{lat: '28.55',long: '-81.33',name: 'sdd'},{lat: '41.90',long: '-87.65',name: 'asdas'}]";
 	var jsonstring = '[{"lat": "33.34","long": "-112.02","name": "kkk"}, {"lat": "32.12","long": "-110.93","name":"lll"}]';
 	function initMap() {
+    alert('init called');
 	var myLatLng = {lat: -34.397, lng: 150.644};
 	  map = new google.maps.Map(document.getElementById('map'), {
 		center: {lat: -34.397, lng: 150.644},
 		zoom: 8
 	  });
 
-	  var marker = new google.maps.Marker({
+	  /*var marker = new google.maps.Marker({
 		position: myLatLng,
 		map: map,
 		title: 'Hello World!'
-	  });
+  });*/
 
 	}
 
 	function googleMaps()
 	{
-		alert('google maps called');
+		//alert('google maps called');
+    //alert(PlotMap());
+    $( "#jumbo" ).hide();
 		$.ajax({
 					type: 'GET',
           dataType: 'jsonp',
 					url: 'https://authenticjobs.com/api/?api_key=8196bf75da67e8644ad9fecd1412ba73&method=aj.jobs.search&keyword=java&format=json',
 					success: function(jsonstring)
 					{
-              
-              //alert(jsonstring);
-              //alert(JSON.stringify(jsonobj));
+              console.log(jsonstring);
 							var jsonobj = eval(jsonstring);
               //alert(jsonobj.listings.listing[0].id);
 							var googlemapdata = new Array();
@@ -112,7 +116,6 @@
 							{
                 if(jsonobj.listings.listing[i].hasOwnProperty('company') && jsonobj.listings.listing[i].company.hasOwnProperty('location'))
                 {
-                  console.log(jsonobj.listings.listing[i].company.location.lat +' '+ jsonobj.listings.listing[i].company.location.lng);
                   //alert(jsonobj.listings.listing[i].company.location.lat);
   							  marker = new google.maps.Marker({
                   position: new google.maps.LatLng(jsonobj.listings.listing[i].company.location.lat, jsonobj.listings.listing[i].company.location.lng),
@@ -121,7 +124,9 @@
 
 								google.maps.event.addListener(marker, 'click', (function(marker, i) {
 								return function() {
-								var setcontentlong = jsonobj[i].name ;
+								var setcontentlong = "<p><b>Company</b>: " + jsonobj.listings.listing[i].company.name+"</p>" ;
+                setcontentlong += "<p><b>Position</b>: "+"<a href='"+jsonobj.listings.listing[i].url+"'>"+jsonobj.listings.listing[i].title+"</a></p>";
+                console.log(setcontentlong);
 								  infowindow.setContent(setcontentlong);
 								  infowindow.open(map, marker);
 								}
@@ -132,9 +137,57 @@
 				});
 }
 
+
+function PlotMap() {
+  console.log("plot called");
+  var result;
+    $.ajax({
+        url: 'https://api.wit.ai/message',
+        async: false,
+        data: {
+            'q': 'Java in New York?',
+            'access_token': 'ILFXAC47HW5DWDN4GJB5CIMTG4PUMVMC'
+        },
+        method: "GET",
+        dataType: 'jsonp',
+        success: function(response) {
+        console.log("ajax returned");
+        result = handleData(response);
+        console.log(result);
+        return googleMaps();
+          //  console.log(result);
+        }
+    });
+    console.log("gonna return");
+    //return result;
+}
+
+
+
+
+function handleData(response) {
+    var skillList = new Array();
+    $.each(response["entities"]["skill"], function(i, obj) {
+        skillList.push(obj.value)
+    });
+
+    var locationList = new Array();
+    $.each(response["entities"]["location"], function(i, obj) {
+        locationList.push(obj.value)
+    });
+
+    var fields = {
+        skill: skillList,
+        location: locationList
+    }
+    return fields;
+}
+
+
+
     </script>
     <script async defer
-      src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDnRMUTTnPIsbv48o5Ljg2USpUKMJfLqK8&callback=initMap">
+      src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDnRMUTTnPIsbv48o5Ljg2USpUKMJfLqK8">
     </script>
   </body>
 </html>
