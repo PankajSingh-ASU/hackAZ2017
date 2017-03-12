@@ -90,15 +90,28 @@
 
 	}
 
-	function googleMaps()
+	function googleMaps(skills,location)
 	{
 		//alert('google maps called');
     //alert(PlotMap());
+    fullUrl = 'https://authenticjobs.com/api/?api_key=8196bf75da67e8644ad9fecd1412ba73&method=aj.jobs.search&format=json'
+    console.log(skills[0]+"dsd");
+    console.log(location[0]);
+    for(i=0;i<skills.length;i++)
+    {
+      fullUrl += '&keyword='+skills[i].trim();
+    }
+    for(j=0;j<location.length;j++)
+    {
+      fullUrl += '&location='+location[j].trim();
+    }
+    console.log(fullUrl);
     $( "#jumbo" ).hide();
 		$.ajax({
 					type: 'GET',
           dataType: 'jsonp',
-					url: 'https://authenticjobs.com/api/?api_key=8196bf75da67e8644ad9fecd1412ba73&method=aj.jobs.search&keyword=java&format=json',
+					//url: 'https://authenticjobs.com/api/?api_key=8196bf75da67e8644ad9fecd1412ba73&method=aj.jobs.search&keyword=java&format=json',
+          url : fullUrl,
 					success: function(jsonstring)
 					{
               console.log(jsonstring);
@@ -145,7 +158,7 @@ function PlotMap() {
         url: 'https://api.wit.ai/message',
         async: false,
         data: {
-            'q': 'Java in New York?',
+            'q': 'Javascript in New York?',
             'access_token': 'ILFXAC47HW5DWDN4GJB5CIMTG4PUMVMC'
         },
         method: "GET",
@@ -154,7 +167,7 @@ function PlotMap() {
         console.log("ajax returned");
         result = handleData(response);
         console.log(result);
-        return googleMaps();
+        return googleMaps(result.skill,result.location);
           //  console.log(result);
         }
     });
