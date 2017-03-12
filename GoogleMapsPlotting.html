@@ -5,13 +5,11 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
     <meta name="description" content="">
     <meta name="author" content="">
 
     <title>customer locator</title>
 
-    <!-- Bootstrap core CSS -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
     <style>
         .jumbotron {
@@ -151,6 +149,7 @@
 
 
 
+
         //for indeed apis
         function googleMaps(skills, location) {
             //alert('google maps called');
@@ -181,9 +180,9 @@
                     var mapOptions = {
                         center: {
                             lat: 38.83,
-                            lng: -77.01
+                            lng: -96.01
                         },
-                        zoom: 3
+                        zoom: 4
                     };
                     var map = new google.maps.Map(document.getElementById('map'), mapOptions);
                     var infowindow = new google.maps.InfoWindow();
@@ -276,7 +275,7 @@
                             <input id="search" type="text" name="search" class="validate">
                             <label for="search_field"> Ask your Question? </label>
                         </div>
-                        <a class="btn-floating btn-large waves-effect waves-light teal lighten-4" onclick="PlotMap(document.getElementById('search').value);"> <img id="robot" src="./src.png" style="width: 40px"/></a>
+                        <a id="search_button" class="btn-floating btn-large waves-effect waves-light teal lighten-4" onclick="PlotMap(document.getElementById('search').value);"> <img id="robot" src="./src.png" style="width: 40px"/></a>
                         <!-- <img src="./src.png" style="width: 40px"/> -->
 
                     </div>
@@ -291,8 +290,13 @@
             <div class="row" id="map">
 
             </div>
+
+            Icons made by <a href="http://www.flaticon.com/authors/eucalyp" title="Eucalyp">Eucalyp</a> from <a href="http://www.flaticon.com" title="Flaticon">www.flaticon.com</a> is licensed by <a href="http://creativecommons.org/licenses/by/3.0/" title="Creative Commons BY 3.0" target="_blank">CC 3.0 BY</a></div>
         </div>
+
     </div>
+    <div>
+
 
 
 </body>
