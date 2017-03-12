@@ -32,7 +32,9 @@
         #map {
             height: 500px;
             padding: 15px;
-            border: 1px solid black;
+            border: 0px solid black;
+            background-color: #F6F6F6;
+            border-radius: 20px;
         }
 
         .row-bottom {
@@ -45,19 +47,64 @@
         }
 
         #right-box {
+            margin-left: 30px;
+        }
+
+        #right-box {
             padding: 5px;
         }
 
         #robot {
             margin-top: 7px;
         }
+
+        #image1 {}
+
+        #image2 {}
+
+        #image3 {}
+
+        #block {
+            display: inline-block;
+        }
+
+        .block img {
+            margin-top: 80px;
+            margin-left: 80px;
+            margin-right: 80px;
+            margin-bottom: 40px;
+        }
+
+        .block p {
+            font-family: 'Lato', sans-serif;
+            text-align: center;
+            font-size: 18px;
+            color: gray;
+        }
+
+        #connect {
+            text-align: center;
+            margin-top: 40px;
+            position: absolute;
+            top: 500px;
+            left: 500px;
+        }
+
+        i {
+            margin: 5px;
+        }
     </style>
     <link href="https://fonts.googleapis.com/css?family=Raleway" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Baloo+Bhaina" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Crimson+Text" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Lato" rel="stylesheet">
+
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
     <!-- Compiled and minified CSS -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.98.0/css/materialize.min.css">
     <!-- Compiled and minified JavaScript -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.98.0/js/materialize.min.js"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
     <script type="text/javascript">
         var map;
         //var jsonString = " 'data' : [{lat: '33.34',long: '-112.02',name: 'kkk'}, {lat: '32.12',long: '-110.93',name:'lll'},{lat: '31.80',long: '-106.40',name:'dsds'},{lat: '33.93',long: '-118.40',name:'sdd'},{lat: '32.73',long: '-117.17',name:'asda'},{lat: '28.55',long: '-81.33',name: 'sdd'},{lat: '41.90',long: '-87.65',name: 'asdas'}]";
@@ -273,9 +320,9 @@
                     <div class="row">
                         <div class="input-field col s11" style="margin: auto">
                             <input id="search" type="text" name="search" class="validate">
-                            <label for="search_field"> Ask your Question? </label>
+                            <label for="search_field"> What's your Question? </label>
                         </div>
-                        <a id="search_button" class="btn-floating btn-large waves-effect waves-light teal lighten-4" onclick="PlotMap(document.getElementById('search').value);"> <img id="robot" src="./src.png" style="width: 40px"/></a>
+                        <a id="search_button" class="btn-floating btn-large waves-effect waves-light teal lighten-4" onclick="PlotMap(document.getElementById('search').value);"> <img id="robot" src="./src.png" style="width: 40px" /></a>
                         <!-- <img src="./src.png" style="width: 40px"/> -->
 
                     </div>
@@ -283,16 +330,42 @@
             </div>
             <div class="row row-bottom">
                 <div class="col s6" id="left-box"> I'm your AI Bot. Type in your question and we will fetch you data that suits your needs the best. </div>
-                <div class="col s6"> Eg: Find Java Jobs in LA. This will list all the jobs in LA, with the skillset JAVA </div>
+                <div class="col s4" id="right-box"> Try, Find Java Jobs in Los Angeles. </div>
             </div>
             <br/>
             <br/>
             <div class="row" id="map">
+                <div class="block col s4">
+                    <img id="image1" src="./briefcase.png" style="width: 100px" />
+                    <p> Skills </p>
+                </div>
+                <div class="block col s4">
+                    <img id="image2" src="./computer.png" style="width: 100px" />
+                    <p> Companies </p>
+
+                </div>
+                <div class="block col s4">
+                    <img id="image3" src="./locations.png" style="width: 100px" />
+                    <p> Locations </p>
+                </div>
+
+                <!-- <div id="connect">
+                    <i class="fa fa-twitter fa-1x" aria-hidden="true"></i>
+                    <i class="fa fa-facebook fa-1x" aria-hidden="true"></i>
+                    <i class="fa fa-linkedin fa-1x" aria-hidden="true"></i>
+                    <i class="fa fa-youtube fa-1x" aria-hidden="true"></i>
+                </div> -->
 
             </div>
+            <small>
+          Icons made by <a href="http://www.flaticon.com/authors/eucalyp" title="Eucalyp">Eucalyp</a> from <a href="http://www.flaticon.com" title="Flaticon">www.flaticon.com</a> is licensed by <a href="http://creativecommons.org/licenses/by/3.0/" title="Creative Commons BY 3.0" target="_blank">CC 3.0 BY</a></div>
+        </small>
 
-            Icons made by <a href="http://www.flaticon.com/authors/eucalyp" title="Eucalyp">Eucalyp</a> from <a href="http://www.flaticon.com" title="Flaticon">www.flaticon.com</a> is licensed by <a href="http://creativecommons.org/licenses/by/3.0/" title="Creative Commons BY 3.0" target="_blank">CC 3.0 BY</a></div>
         </div>
+
+    </div>
+
+    </div>
 
     </div>
     <div>
